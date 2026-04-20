@@ -39,18 +39,34 @@ body {
     to { opacity: 0.6; }
 }
 
-/* 3. Meteor Shower (Multiple Shooting Stars) */
+/* 3. Meteor Shower: Dot Head with Fading Trail */
 .shooting-star {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    background: linear-gradient(-45deg, #ffffff, rgba(0, 0, 255, 0));
-    filter: drop-shadow(0 0 6px #ffffff);
-    animation: shooting 3s ease-in-out infinite;
+    width: 4px;        /* The "Dot" head size */
+    height: 4px;
+    background: #fff;  /* Bright white core */
+    border-radius: 50%; /* Makes the head a round dot */
     opacity: 0;
+    z-index: 5;
+    /* Glow effect for the star head */
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff; 
+    animation: shooting 3s ease-in-out infinite;
 }
 
-/* Individual timings and paths for variety */
+/* The Cinematic Trail */
+.shooting-star::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px; /* Length of the fading tail */
+    height: 1px;  /* Tail thickness */
+    /* Fades from the head into the darkness of space */
+    background: linear-gradient(90deg, #fff, transparent);
+    z-index: -1;  /* Keeps the trail behind the star head */
+}
+
+/* Individual timings and paths for variety across the full page */
 .shooting-star:nth-child(3) { top: 10%; left: 80%; animation-delay: 0s; }
 .shooting-star:nth-child(4) { top: 30%; left: 60%; animation-delay: 1.5s; }
 .shooting-star:nth-child(5) { top: 50%; left: 90%; animation-delay: 2.2s; }
@@ -58,9 +74,19 @@ body {
 .shooting-star:nth-child(7) { top: 20%; left: 20%; animation-delay: 3.5s; }
 
 @keyframes shooting {
-    0% { transform: translateX(0) translateY(0) rotate(215deg); opacity: 1; }
-    70% { opacity: 1; }
-    100% { transform: translateX(-1000px) translateY(1000px) rotate(215deg); opacity: 0; }
+    0% { 
+        /* Starting point with 215-degree rotation for the downward path */
+        transform: translateX(0) translateY(0) rotate(215deg); 
+        opacity: 1; 
+    }
+    70% { 
+        opacity: 1; 
+    }
+    100% { 
+        /* Moves the star across the screen while maintaining the flight angle */
+        transform: translateX(-1000px) translateY(1000px) rotate(215deg); 
+        opacity: 0; 
+    }
 }
 
 /* 4. Hero Section (Transparent to show stars) */
