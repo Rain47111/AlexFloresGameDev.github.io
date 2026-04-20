@@ -1,100 +1,105 @@
-.card img {
-    width: 100%;
-    max-width: 600px;  /* Limits the image size specifically */
-    height: auto;      /* Maintains aspect ratio */
-    border-radius: 4px;
-    display: block;
-    margin: 0 auto 15px auto; /* Centers the image and adds bottom spacing */
-}
-
+/* 1. Global Page Styles */
 body {
-    background-color: #121212;
-    color: #e0e0e0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
     margin: 0;
-    padding: 20px;
-}
-
-/* 1. The Deep Space Background */
-.hero {
-    position: relative;
-    overflow: hidden; /* Critical: keeps shooting stars inside the header */
+    padding: 0;
     background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-    height: 60vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid rgba(0, 122, 204, 0.3);
+    background-attachment: fixed; /* Background stays still while scrolling */
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
 }
 
-/* 2. Parallax Twinkle Layer (Small, slower stars) */
-.stars2 {
-    position: absolute;
+/* 2. Global Space Container (Behind everything) */
+.stars-container {
+    position: fixed; /* Keeps the background covering the whole screen */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1; /* Puts it behind your text and cards */
+    overflow: hidden;
+}
+
+/* Parallax Stars */
+.stars, .stars2 {
+    position: absolute;
+    width: 200%;
+    height: 200%;
     background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png') repeat;
-    background-size: 200px 200px;
     opacity: 0.5;
-    animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+.stars2 {
+    background-size: 300px 300px;
+    animation: twinkle 5s ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-    from { opacity: 0.3; }
-    to { opacity: 0.7; }
+    from { opacity: 0.2; }
+    to { opacity: 0.6; }
 }
 
-/* 3. The Shooting Star Animation */
-.shooting-stars {
+/* 3. Meteor Shower (Multiple Shooting Stars) */
+.shooting-star {
     position: absolute;
-    top: 0;
-    left: 50%;
     width: 2px;
     height: 2px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,1);
-    animation: animate 3s linear infinite;
+    background: linear-gradient(-45deg, #ffffff, rgba(0, 0, 255, 0));
+    filter: drop-shadow(0 0 6px #ffffff);
+    animation: shooting 3s ease-in-out infinite;
+    opacity: 0;
 }
 
-@keyframes animate {
-    0% {
-        transform: rotate(315deg) translateX(0);
-        opacity: 1;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        transform: rotate(315deg) translateX(-1000px);
-        opacity: 0;
-    }
+/* Individual timings and paths for variety */
+.shooting-star:nth-child(3) { top: 10%; left: 80%; animation-delay: 0s; }
+.shooting-star:nth-child(4) { top: 30%; left: 60%; animation-delay: 1.5s; }
+.shooting-star:nth-child(5) { top: 50%; left: 90%; animation-delay: 2.2s; }
+.shooting-star:nth-child(6) { top: 70%; left: 50%; animation-delay: 0.8s; }
+.shooting-star:nth-child(7) { top: 20%; left: 20%; animation-delay: 3.5s; }
+
+@keyframes shooting {
+    0% { transform: translateX(0) translateY(0) rotate(215deg); opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: translateX(-1000px) translateY(1000px) rotate(215deg); opacity: 0; }
 }
 
-/* 4. Text Readability */
-.hero h1, .hero p {
+/* 4. Hero Section (Transparent to show stars) */
+.hero {
     position: relative;
-    z-index: 10; /* Ensures text stays on top of all star layers */
-    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    text-align: center;
+    padding: 80px 0;
+    z-index: 10;
 }
 
+.hero h1, .hero p {
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+}
+
+/* 5. AAA "Glassmorphism" Project Cards */
 .card {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px auto; /* Centers the card on the page */
-    max-width: 800px;   /* Prevents the card from stretching across the whole screen */
+    background: rgba(30, 30, 30, 0.7); /* Semi-transparent */
+    backdrop-filter: blur(8px);       /* Frosty glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle tech border */
+    border-radius: 12px;
+    padding: 25px;
+    margin: 40px auto;
+    max-width: 800px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease;
 }
 
-h2 {
-    color: #007acc;
+.card:hover {
+    transform: translateY(-5px); /* Card lifts slightly on hover like a menu */
 }
 
-a {
-    color: #4db8ff;
-    text-decoration: none;
+.card img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto 20px auto;
 }
+
+h2 { color: #007acc; margin-top: 0; }
+a { color: #4db8ff; text-decoration: none; font-weight: bold; }
