@@ -1,37 +1,32 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0a0a0a;
-  color: white;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
 }
 
 .hero {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero h1 {
-  font-size: 3rem;
-}
-
-.projects {
-  display: flex;
-  gap: 20px;
-  padding: 40px;
-  justify-content: center;
+    text-align: center;
+    padding: 50px 0;
+    background: linear-gradient(45deg, #1f1f1f, #333);
+    border-bottom: 3px solid #007acc; /* Unreal Engine Blue */
 }
 
 .card {
-  background: #151515;
-  padding: 20px;
-  border-radius: 12px;
-  width: 250px;
-  transition: 0.3s;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
 }
 
-.card:hover {
-  transform: translateY(-10px);
+h2 {
+    color: #007acc;
+}
+
+a {
+    color: #4db8ff;
+    text-decoration: none;
 }
