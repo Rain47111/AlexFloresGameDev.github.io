@@ -1,4 +1,10 @@
-body { background-color: red !important; }
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 15px;
+}
 
 body {
     background-color: #121212;
@@ -31,12 +37,4 @@ h2 {
 a {
     color: #4db8ff;
     text-decoration: none;
-}
-/* This ensures images stay inside their project cards */
-.card img {
-    width: 100%;         /* Forces the image to match the width of the card */
-    height: auto;        /* Keeps the image from looking stretched or squished */
-    border-radius: 4px;  /* Optional: rounds the corners to look more professional */
-    display: block;      /* Removes extra space at the bottom of the image */
-    margin-bottom: 15px; /* Adds space between the image and the text below it */
 }
