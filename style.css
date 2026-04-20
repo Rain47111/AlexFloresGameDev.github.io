@@ -39,7 +39,7 @@ body {
     to { opacity: 0.6; }
 }
 
-/* 3. Meteor Shower: Dot Head with Fading Trail (Behind the head) */
+/* 3. Meteor Shower: Dot Head with Correctly Aligned Fading Trail */
 .shooting-star {
     position: absolute;
     width: 4px;        /* The bright dot "head" */
@@ -52,7 +52,7 @@ body {
     animation: shooting 3s ease-in-out infinite;
 }
 
-/* Corrected Trail: Anchored to the back of the dot */
+/* Corrected Trail: Anchored behind the downward-left motion */
 .shooting-star::before {
     content: "";
     position: absolute;
@@ -62,7 +62,7 @@ body {
     height: 1px;
     right: 0;          /* Anchors the white end of the trail to the dot head */
     /* Trail fades from the dot into the background */
-    background: linear-gradient(90deg, transparent, #fff); 
+    background: linear-gradient(to right, transparent, #fff); 
     z-index: -1;
 }
 
@@ -75,16 +75,16 @@ body {
 
 @keyframes shooting {
     0% { 
-        /* 225deg rotation aligns the trail perfectly behind the bottom-left motion */
-        transform: translateX(0) translateY(0) rotate(225deg); 
+        /* 135deg rotation aligns the head Down-Left and the tail Up-Right */
+        transform: translateX(0) translateY(0) rotate(135deg); 
         opacity: 1; 
     }
     70% { 
         opacity: 1; 
     }
     100% { 
-        /* Moves the star towards the bottom left while maintaining alignment */
-        transform: translateX(-1000px) translateY(1000px) rotate(225deg); 
+        /* Moves the star towards the bottom left (-X, +Y) */
+        transform: translateX(-1000px) translateY(1000px) rotate(135deg); 
         opacity: 0; 
     }
 }
