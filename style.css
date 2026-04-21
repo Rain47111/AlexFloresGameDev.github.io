@@ -3,93 +3,107 @@ body {
     margin: 0;
     padding: 0;
     background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-    background-attachment: fixed; /* Background stays still while scrolling */
+    background-attachment: fixed;
     color: #e0e0e0;
     font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
 }
 
-/* 2. Global Space Container (Behind everything) */
+/* 2. Global Space Container */
 .stars-container {
-    position: fixed; /* Keeps the background covering the whole screen */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Puts it behind your text and cards */
+    z-index: -1;
     overflow: hidden;
 }
 
-/* Parallax Stars */
-.stars, .stars2 {
+/* 3. Static Background Stars (The "Deep Space" Look)
+   We use three layers for parallax depth and differing brightness 
+*/
+.stars, .stars2, .stars3 {
     position: absolute;
-    width: 200%;
-    height: 200%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png') repeat;
-    opacity: 0.5;
+}
+
+.stars {
+    opacity: 0.15; /* Dimmest, furthest layer */
+    background-size: 200px 200px;
 }
 
 .stars2 {
+    opacity: 0.3; /* Medium brightness */
     background-size: 300px 300px;
-    animation: twinkle 5s ease-in-out infinite alternate;
+    animation: twinkle 8s ease-in-out infinite alternate; /* Subtle breathing effect */
+}
+
+.stars3 {
+    opacity: 0.1; /* Very faint varied stars */
+    background-size: 500px 500px;
 }
 
 @keyframes twinkle {
-    from { opacity: 0.2; }
-    to { opacity: 0.6; }
+    from { opacity: 0.15; }
+    to { opacity: 0.4; }
 }
 
-/* 3. Meteor Shower: Dot Head with Correctly Aligned Fading Trail */
+/* 4. Meteor Shower: Slower speed and Dot + Trail */
 .shooting-star {
     position: absolute;
-    width: 4px;        /* The bright dot "head" */
+    width: 4px;
     height: 4px;
-    background: #fff;  
+    background: #fff;
     border-radius: 50%;
     opacity: 0;
     z-index: 5;
-    box-shadow: 0 0 10px #fff, 0 0 20px #fff; 
-    animation: shooting 3s ease-in-out infinite;
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+    /* Lowered speed: Animation duration changed from 3s to 6s */
+    animation: shooting 6s ease-in-out infinite; 
 }
 
-/* Corrected Trail: Anchored behind the downward-left motion */
 .shooting-star::before {
     content: "";
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 150px;     /* Length of the tail */
+    width: 150px;
     height: 1px;
-    right: 0;          /* Anchors the white end of the trail to the dot head */
-    /* Trail fades from the dot into the background */
-    background: linear-gradient(to right, transparent, #fff); 
+    right: 0;
+    background: linear-gradient(to right, transparent, #fff);
     z-index: -1;
 }
 
-/* Individual timings for variety across the full page */
+/* Lowered Spawn Rate: Increased delays so they trigger less frequently */
 .shooting-star:nth-child(3) { top: 10%; left: 80%; animation-delay: 0s; }
-.shooting-star:nth-child(4) { top: 30%; left: 60%; animation-delay: 1.5s; }
-.shooting-star:nth-child(5) { top: 50%; left: 90%; animation-delay: 2.2s; }
-.shooting-star:nth-child(6) { top: 70%; left: 50%; animation-delay: 0.8s; }
-.shooting-star:nth-child(7) { top: 20%; left: 20%; animation-delay: 3.5s; }
+.shooting-star:nth-child(4) { top: 30%; left: 60%; animation-delay: 4s; }
+.shooting-star:nth-child(5) { top: 50%; left: 90%; animation-delay: 8s; }
+.shooting-star:nth-child(6) { top: 70%; left: 50%; animation-delay: 12s; }
+.shooting-star:nth-child(7) { top: 20%; left: 20%; animation-delay: 16s; }
 
 @keyframes shooting {
     0% { 
-        /* 135deg rotation aligns the head Down-Left and the tail Up-Right */
         transform: translateX(0) translateY(0) rotate(135deg); 
         opacity: 1; 
     }
-    70% { 
+    30% { 
         opacity: 1; 
     }
+    60% { 
+        opacity: 0; 
+    }
     100% { 
-        /* Moves the star towards the bottom left (-X, +Y) */
         transform: translateX(-1000px) translateY(1000px) rotate(135deg); 
         opacity: 0; 
     }
 }
 
-/* 4. Hero Section (Transparent to show stars) */
+/* 5. Hero & Card Styles (Same as before) */
 .hero {
     position: relative;
     text-align: center;
@@ -101,11 +115,10 @@ body {
     text-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
 }
 
-/* 5. AAA "Glassmorphism" Project Cards */
 .card {
-    background: rgba(30, 30, 30, 0.7); 
-    backdrop-filter: blur(8px);       
-    border: 1px solid rgba(255, 255, 255, 0.1); 
+    background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 25px;
     margin: 40px auto;
@@ -114,18 +127,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.card:hover {
-    transform: translateY(-5px); 
-}
-
-.card img {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    border-radius: 6px;
-    display: block;
-    margin: 0 auto 20px auto;
-}
-
+.card:hover { transform: translateY(-5px); }
+.card img { width: 100%; max-width: 600px; height: auto; border-radius: 6px; display: block; margin: 0 auto 20px auto; }
 h2 { color: #007acc; margin-top: 0; }
 a { color: #4db8ff; text-decoration: none; font-weight: bold; }
