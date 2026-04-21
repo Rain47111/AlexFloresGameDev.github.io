@@ -20,8 +20,8 @@ body {
     overflow: hidden;
 }
 
-/* 3. Static Background Stars (The "Deep Space" Look)
-   We use three layers for parallax depth and differing brightness 
+/* 3. Static Background Stars (High-Visibility Depth) 
+   Increased opacity ensures these are visible behind your content.
 */
 .stars, .stars2, .stars3 {
     position: absolute;
@@ -33,24 +33,24 @@ body {
 }
 
 .stars {
-    opacity: 0.15; /* Dimmest, furthest layer */
+    opacity: 0.3; /* Increased from 0.15 */
     background-size: 200px 200px;
 }
 
 .stars2 {
-    opacity: 0.3; /* Medium brightness */
+    opacity: 0.5; /* Increased from 0.3 to make it pop */
     background-size: 300px 300px;
-    animation: twinkle 8s ease-in-out infinite alternate; /* Subtle breathing effect */
+    animation: twinkle 8s ease-in-out infinite alternate;
 }
 
 .stars3 {
-    opacity: 0.1; /* Very faint varied stars */
+    opacity: 0.2; /* Increased from 0.1 */
     background-size: 500px 500px;
 }
 
 @keyframes twinkle {
-    from { opacity: 0.15; }
-    to { opacity: 0.4; }
+    from { opacity: 0.2; }
+    to { opacity: 0.6; }
 }
 
 /* 4. Meteor Shower: Slower speed and Dot + Trail */
@@ -63,7 +63,6 @@ body {
     opacity: 0;
     z-index: 5;
     box-shadow: 0 0 10px #fff, 0 0 20px #fff;
-    /* Lowered speed: Animation duration changed from 3s to 6s */
     animation: shooting 6s ease-in-out infinite; 
 }
 
@@ -79,7 +78,7 @@ body {
     z-index: -1;
 }
 
-/* Lowered Spawn Rate: Increased delays so they trigger less frequently */
+/* Lowered Spawn Rate: Precise timing for rare, professional "accents" */
 .shooting-star:nth-child(3) { top: 10%; left: 80%; animation-delay: 0s; }
 .shooting-star:nth-child(4) { top: 30%; left: 60%; animation-delay: 4s; }
 .shooting-star:nth-child(5) { top: 50%; left: 90%; animation-delay: 8s; }
@@ -103,7 +102,7 @@ body {
     }
 }
 
-/* 5. Hero & Card Styles (Same as before) */
+/* 5. Hero & Card Styles (AAA Glassmorphism Look) */
 .hero {
     position: relative;
     text-align: center;
